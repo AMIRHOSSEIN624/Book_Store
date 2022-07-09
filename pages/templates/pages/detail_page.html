@@ -28,15 +28,15 @@
                                 {{ book.price }} تومان
                             </h3>
                         </div>
-{#                        {% if is_favorite %}#}
-{##}
-{#                            <li id="sell"><a href="{% url 'favorite_book' book.id %}"> remove favorit <i#}
-{#                                    class="fas fa-heart"></i></a></li>#}
-{#                        {% else %}#}
-{#                            <li id="sell"><a href="{% url 'favorite_book' book.id %}"> add to favorit <i#}
-{#                                    class="far fa-heart"></i></a></li>#}
-{#                        {% endif %}#}
-{##}
+                        {#                        {% if is_favorite %}#}
+                        {##}
+                        {#                            <li id="sell"><a href="{% url 'favorite_book' book.id %}"> remove favorit <i#}
+                        {#                                    class="fas fa-heart"></i></a></li>#}
+                        {#                        {% else %}#}
+                        {#                            <li id="sell"><a href="{% url 'favorite_book' book.id %}"> add to favorit <i#}
+                        {#                                    class="far fa-heart"></i></a></li>#}
+                        {#                        {% endif %}#}
+                        {##}
 
 
                     </div>
@@ -52,14 +52,14 @@
                 <div class="d-flex justify-content-center">
                     <div class="card shadow my-3 p-5 w-sm-75 w-100">
                         <h2 class="mb-5">نظرات:</h2>
-{#                        {% for comment in comments %}#}
+                        {% for comment in comments %}
                             <div class="border-bottom mb-3">
-{#                                <h5 class="mb-3">{{# book.user.username }}</h5>#}
-{#                                <p>{{# comment.text }}</p>#}
+                                <h5 class="mb-3">{{ book.user.email }}</h5>
+                                <p>{{ comment.text }}</p>
                             </div>
 
 
-{#                        {% endfor %}#}
+                        {% endfor %}
 
                     </div>
                 </div>
@@ -71,7 +71,7 @@
 
                             <form method="POST">
                                 {% csrf_token %}
-{#                                {{ comment_form|crispy }}#}
+                                {{ comment_form }}
                                 <button type="submit" class="btn btn-primary">ارسال</button>
                             </form>
                         {% else %}
