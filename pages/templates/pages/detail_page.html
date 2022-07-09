@@ -1,0 +1,89 @@
+{% extends '_base.html' %}
+
+{% load static %}
+{% block title %}
+    Detail Page
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5" dir="rtl">
+        <div class="">
+            <div class="">
+                <div class="d-flex justify-content-center">
+                    <div class="row w-sm-75 w-100">
+                        <div class="col-xs-12 col-md-3 d-flex justify-content-center">
+                            <div>
+                                <img src="{{ book.cover.url }}"
+                                     class="img-fluid rounded-start" alt="...">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6 text-center text-md-end mt-md-1 mt-4">
+                            <h1>{{ book.title }}</h1>
+
+                            <h5 class="small my-1"><span class="text-muted">نویسنده: </span>{{ book.author }}</h5>
+
+                        </div>
+                        <div class="col-xs-12 col-md-3 d-flex flex-column">
+                            <h3 class="align-self-center pt-2 text-muted align-self-md-end">
+                                {{ book.price }} تومان
+                            </h3>
+                        </div>
+{#                        {% if is_favorite %}#}
+{##}
+{#                            <li id="sell"><a href="{% url 'favorite_book' book.id %}"> remove favorit <i#}
+{#                                    class="fas fa-heart"></i></a></li>#}
+{#                        {% else %}#}
+{#                            <li id="sell"><a href="{% url 'favorite_book' book.id %}"> add to favorit <i#}
+{#                                    class="far fa-heart"></i></a></li>#}
+{#                        {% endif %}#}
+{##}
+
+
+                    </div>
+
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <div class="my-3 p-5 w-sm-75 w-100">
+                        {{ book.text|linebreaks }}
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <div class="card shadow my-3 p-5 w-sm-75 w-100">
+                        <h2 class="mb-5">نظرات:</h2>
+{#                        {% for comment in comments %}#}
+                            <div class="border-bottom mb-3">
+{#                                <h5 class="mb-3">{{# book.user.username }}</h5>#}
+{#                                <p>{{# comment.text }}</p>#}
+                            </div>
+
+
+{#                        {% endfor %}#}
+
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <div class="card shadow my-3 p-5 w-sm-75 w-100">
+                        <h3>نظر خود را وارد کنید:</h3>
+                        {% if user.is_authenticated %}
+
+                            <form method="POST">
+                                {% csrf_token %}
+{#                                {{ comment_form|crispy }}#}
+                                <button type="submit" class="btn btn-primary">ارسال</button>
+                            </form>
+                        {% else %}
+                            <P>لطفا وارد سایت شوید</P>
+                            <a href="{% url 'account_login' %}">login</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
