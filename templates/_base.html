@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load crispy_forms_tags %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -31,10 +31,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="">خانه</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">خانه</a>
 
             </div>
-            <form action="" method="POST" class="search-form">
+            <form action="{% url 'search' %}" method="POST" class="search-form">
                 {% csrf_token %}
                 <input type="text" class="se-form search-input" name="searched" >
                 <input type="submit" class="se-form search-submit" value="جـستجو">
@@ -43,7 +43,7 @@
         {% if user.is_authenticated %}
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="">کتاب های مورد علاقه</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'favorite_list' %}">کتاب های مورد علاقه</a>
 
             </div>
 

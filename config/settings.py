@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     # party app
     'allauth',
     'allauth.account',
+    'crispy_forms',
 
     # local apps
     'accounts',
@@ -149,3 +150,7 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+CRISPY_TEMPLATE_PAck = 'bootstrap4'
+
+

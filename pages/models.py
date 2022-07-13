@@ -9,6 +9,7 @@ class Book(models.Model):
     text = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=3)
     cover = models.ImageField(upload_to='covers/')
+    favorite = models.ManyToManyField(get_user_model(),related_name='favorite',blank=True)
 
     create_datetime = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)

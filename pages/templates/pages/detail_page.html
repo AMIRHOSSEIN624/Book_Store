@@ -1,5 +1,5 @@
 {% extends '_base.html' %}
-
+{% load crispy_forms_tags %}
 {% load static %}
 {% block title %}
     Detail Page
@@ -28,15 +28,14 @@
                                 {{ book.price }} تومان
                             </h3>
                         </div>
-                        {#                        {% if is_favorite %}#}
-                        {##}
-                        {#                            <li id="sell"><a href="{% url 'favorite_book' book.id %}"> remove favorit <i#}
-                        {#                                    class="fas fa-heart"></i></a></li>#}
-                        {#                        {% else %}#}
-                        {#                            <li id="sell"><a href="{% url 'favorite_book' book.id %}"> add to favorit <i#}
-                        {#                                    class="far fa-heart"></i></a></li>#}
-                        {#                        {% endif %}#}
-                        {##}
+                        {% if is_favorite %}
+
+                            <li id="sell"><a href="{% url 'favorite_book' book.id %}"> remove favorit <i
+                                    class="fas fa-heart"></i></a></li>
+                        {% else %}
+                            <li id="sell"><a href="{% url 'favorite_book' book.id %}"> add to favorit <i
+                                    class="far fa-heart"></i></a></li>
+                        {% endif %}
 
 
                     </div>
@@ -54,7 +53,7 @@
                         <h2 class="mb-5">نظرات:</h2>
                         {% for comment in comments %}
                             <div class="border-bottom mb-3">
-                                <h5 class="mb-3">{{ book.user.email }}</h5>
+                                <h5 class="mb-3">{{ user.username }}</h5>
                                 <p>{{ comment.text }}</p>
                             </div>
 
@@ -71,7 +70,7 @@
 
                             <form method="POST">
                                 {% csrf_token %}
-                                {{ comment_form }}
+                                {{ comment_form|crispy }}
                                 <button type="submit" class="btn btn-primary">ارسال</button>
                             </form>
                         {% else %}
