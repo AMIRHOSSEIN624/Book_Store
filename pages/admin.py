@@ -3,4 +3,4 @@ from .models import Book,Comment
 
 
 admin.site.register(Book)
-admin.site.regsiter(Comment)
+admin.site.register(Comment)

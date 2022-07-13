@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from .models import Book
 from django.views import generic
 from .forms import CommentForm
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 
 class BookList(generic.ListView):
@@ -11,9 +13,16 @@ class BookList(generic.ListView):
     paginate_by = 4
 
 
+def like_view(request, pk):
+    book = get_object_or_404(Book, id=request.POST.get('book_id'))
+    book.likes.add(request.user)
+    return HttpResponseRedirect(reverse('detail_page', args=[str(pk)]))
+
+
 def detail_page(request, pk):
     book = get_object_or_404(Book, pk=pk)
     comment = book.comments.all()
+    total_likes = book.total_likes()
     is_favorite = False
     if book.favorite.filter(id=request.user.id).exists():
         is_favorite = True
@@ -29,7 +38,7 @@ def detail_page(request, pk):
         comment_form = CommentForm()
 
     return render(request, 'pages/detail_page.html',
-                  {'book': book, 'comments': comment, 'comment_form': comment_form, 'is_favorite': is_favorite})
+                  {'book': book, 'comments': comment, 'comment_form': comment_form, 'is_favorite': is_favorite , 'total_likes': total_likes})
 
 
 def favorite_book(request, pk):

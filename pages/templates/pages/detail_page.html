@@ -37,6 +37,18 @@
                                     class="far fa-heart"></i></a></li>
                         {% endif %}
 
+                        <br>
+                        <br>
+                        <br>
+
+                        <form action="{% url 'like_book'  book.id %}"  method="POST">
+                            {% csrf_token %}
+
+                            <button   type="submit",  name="book_id" , value=" {{ book.id }}" ,  class="btn btn-primary btn-sm" >likes </button> - {{ total_likes }} likes
+
+                        </form>
+
+
 
                     </div>
 
