@@ -28,6 +28,7 @@
                                 {{ book.price }} تومان
                             </h3>
                         </div>
+                    {% if user.is_authenticated %}
                         {% if is_favorite %}
 
                             <li id="sell"><a href="{% url 'favorite_book' book.id %}"> remove favorit <i
@@ -36,17 +37,33 @@
                             <li id="sell"><a href="{% url 'favorite_book' book.id %}"> add to favorit <i
                                     class="far fa-heart"></i></a></li>
                         {% endif %}
+                    {% endif %}
 
                         <br>
                         <br>
                         <br>
+                    {% if user.is_authenticated %}
+                        {% if liked %}
 
-                        <form action="{% url 'like_book'  book.id %}"  method="POST">
-                            {% csrf_token %}
+                            <form action="{% url 'like_book'  book.id %}"  method="POST">
+                                {% csrf_token %}
 
-                            <button   type="submit",  name="book_id" , value=" {{ book.id }}" ,  class="btn btn-primary btn-sm" >likes </button> - {{ total_likes }} likes
+                                <button   type="submit",  name="book_id" , value=" {{ book.id }}" ,  class="btn btn-danger btn-sm" >unlikes </button> - {{ total_likes }} likes
 
-                        </form>
+                            </form>
+                        {% else %}
+
+                             <form action="{% url 'like_book'  book.id %}"  method="POST">
+                                {% csrf_token %}
+
+                                <button   type="submit",  name="book_id" , value=" {{ book.id }}" ,  class="btn btn-primary btn-sm" >likes </button> - {{ total_likes }} likes
+
+                             </form>
+                        {% endif %}
+                    {% else %}
+                        {{ total_likes }} likes
+
+                    {% endif %}
 
 
 

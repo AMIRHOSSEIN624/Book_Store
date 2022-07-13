@@ -15,7 +15,12 @@ class BookList(generic.ListView):
 
 def like_view(request, pk):
     book = get_object_or_404(Book, id=request.POST.get('book_id'))
-    book.likes.add(request.user)
+    liked = False
+    if book.likes.filter(id=request.user.id).exists():
+        book.likes.remove(request.user)
+    else:
+        book.likes.add(request.user)
+        liked = True
     return HttpResponseRedirect(reverse('detail_page', args=[str(pk)]))
 
 
@@ -24,8 +29,11 @@ def detail_page(request, pk):
     comment = book.comments.all()
     total_likes = book.total_likes()
     is_favorite = False
+    liked = False
     if book.favorite.filter(id=request.user.id).exists():
         is_favorite = True
+    if book.likes.filter(id=request.user.id).exists():
+        liked = True
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
@@ -38,7 +46,7 @@ def detail_page(request, pk):
         comment_form = CommentForm()
 
     return render(request, 'pages/detail_page.html',
-                  {'book': book, 'comments': comment, 'comment_form': comment_form, 'is_favorite': is_favorite , 'total_likes': total_likes})
+                  {'book': book, 'comments': comment, 'comment_form': comment_form, 'is_favorite': is_favorite , 'total_likes': total_likes, 'liked': liked})
 
 
 def favorite_book(request, pk):
