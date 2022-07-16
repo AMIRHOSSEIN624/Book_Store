@@ -11,6 +11,7 @@ class Book(models.Model):
     cover = models.ImageField(upload_to='covers/')
     favorite = models.ManyToManyField(get_user_model(), related_name='favorite', blank=True)
     likes = models.ManyToManyField(get_user_model(), related_name='book_likes', blank=True)
+    views = models.IntegerField(default=0)
 
     create_datetime = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)
@@ -23,7 +24,6 @@ class Book(models.Model):
 
     def total_likes(self):
         return self.likes.count()
-
 
 
 class Comment(models.Model):

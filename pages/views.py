@@ -26,6 +26,8 @@ def like_view(request, pk):
 
 def detail_page(request, pk):
     book = get_object_or_404(Book, pk=pk)
+    book.views += 1
+    book.save()
     comment = book.comments.all()
     total_likes = book.total_likes()
     is_favorite = False

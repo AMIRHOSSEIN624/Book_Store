@@ -51,7 +51,7 @@
         {% if user.is_authenticated %}
         <div class="mx-2 text-white">خوش آمدی {{ user.username }} | <a class="link-light text-decoration-none" href="{% url 'account_logout' %}">خروج</a>
         {% else %}
-            <a class="link-light text-decoration-none" href="{% url 'account_login' %}">ورود</a> | <a class="link-light text-decoration-none" href="{% url 'account_signup' %}">ثبت نام</a>
+            <a class="link-light text-decoration-none" href="{% url 'account_login' %}?next={{ request.path }}">ورود </a> | <a class="link-light text-decoration-none" href="{% url 'account_signup' %}">ثبت نام</a>
         {% endif %}
         </div>
     </div>
