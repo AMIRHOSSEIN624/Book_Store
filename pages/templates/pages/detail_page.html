@@ -67,6 +67,8 @@
 
                     <p>views:{{ book.views }}</p>
 
+
+
                     </div>
 
                 </div>
@@ -88,7 +90,7 @@
 
 
                         {% endfor %}
-
+                    <a class="nav-link active" aria-current="page" href="{% url 'update_book' book.id %}">update</a>
                     </div>
                 </div>
 

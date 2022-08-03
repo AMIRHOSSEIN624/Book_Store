@@ -1,10 +1,10 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
-from .models import Book
+from .models import Book , Category
 from django.views import generic
-from .forms import CommentForm
+from .forms import CommentForm,FormCreateBook
 from django.http import HttpResponseRedirect
-from django.urls import reverse
-
+from django.urls import reverse,reverse_lazy
+from django.contrib.auth.mixins import UserPassesTestMixin,LoginRequiredMixin
 
 class BookList(generic.ListView):
     model = Book
@@ -48,7 +48,7 @@ def detail_page(request, pk):
         comment_form = CommentForm()
 
     return render(request, 'pages/detail_page.html',
-                  {'book': book, 'comments': comment, 'comment_form': comment_form, 'is_favorite': is_favorite , 'total_likes': total_likes, 'liked': liked})
+                  {'book': book, 'comments': comment, 'comment_form': comment_form, 'is_favorite': is_favorite , 'total_likes': total_likes, 'liked': liked,})
 
 
 def favorite_book(request, pk):
@@ -75,3 +75,37 @@ def search_bar(request):
         return render(request, 'pages/search.html', {'searched': searched, 'books': book})
     else:
         return render(request, 'pages/search.html')
+
+
+class CreateBook(LoginRequiredMixin,generic.CreateView):
+    model = Book
+    form_class = FormCreateBook
+    template_name = 'pages/create_book.html'
+    success_url = reverse_lazy('home')
+
+
+class UpdateBook(UserPassesTestMixin,generic.UpdateView):
+    model = Book
+    form_class = FormCreateBook
+    template_name = 'pages/create_book.html'
+    success_url = reverse_lazy('home')
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.user == self.request.user
+
+
+class DeleteBook(UserPassesTestMixin,generic.DeleteView):
+    model = Book
+    template_name = 'pages/delete_book.html'
+    success_url = reverse_lazy('home')
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.user == self.request.user
+
+
+def category_filter(request, cats):
+
+    cat = Book.objects.filter(genre=cats)
+    return render(request, 'pages/category.html', {'category': cat})

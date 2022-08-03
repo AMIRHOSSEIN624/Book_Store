@@ -1,0 +1,18 @@
+{% extends '_base.html' %}
+
+{% block title %}
+
+
+{% endblock %}
+
+{% block content %}
+
+    are you sure to delete {{ book.title }} ?
+    <form method="POST" , action="{% url 'delete' book.id %}">
+        {% csrf_token %}
+        <button type="submit">delete</button>
+
+    </form>
+
+
+{% endblock %}

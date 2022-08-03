@@ -45,9 +45,11 @@
             <div class="navbar-nav">
                 <a class="nav-link active" aria-current="page" href="{% url 'favorite_list' %}">کتاب های مورد علاقه</a>
 
+
             </div>
 
         {% endif %}
+                <a class="nav-link active" aria-current="page" href="{% url 'create_book' %}">اضافه کردن کتاب</a>
         {% if user.is_authenticated %}
         <div class="mx-2 text-white">خوش آمدی {{ user.username }} | <a class="link-light text-decoration-none" href="{% url 'account_logout' %}">خروج</a>
         {% else %}
@@ -56,6 +58,8 @@
         </div>
     </div>
 </nav>
+
+
 {% block content %}
 
 
