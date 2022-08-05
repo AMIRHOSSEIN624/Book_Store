@@ -65,7 +65,11 @@
 
                     {% endif %}
 
-                    <p>views:{{ book.views }}</p>
+                    <p>views:{{ book.views }}</p> <br>
+                    <a href="{% url 'delete' book.id %}" ><button type="button" class="btn btn-danger">delete</button></a>   <a href="{% url 'update_book' book.id %}" ><button type="button" class="btn btn-success">update</button></a>
+
+
+
 
 
 

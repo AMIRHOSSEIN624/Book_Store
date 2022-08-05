@@ -36,30 +36,44 @@
             </div>
             <form action="{% url 'search' %}" method="POST" class="search-form">
                 {% csrf_token %}
-                <input type="text" class="se-form search-input" name="searched" >
+                <input type="text" class="se-form search-input" name="searched">
                 <input type="submit" class="se-form search-submit" value="جـستجو">
             </form>
-            </div>
-        {% if user.is_authenticated %}
+        </div>
+
+
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-link active" aria-current="page" href="{% url 'favorite_list' %}">کتاب های مورد علاقه</a>
 
+                <a class="nav-link active" aria-current="page" href="{% url 'create_book' %}">اضافه کردن کتاب</a>
 
             </div>
 
-        {% endif %}
-                <a class="nav-link active" aria-current="page" href="{% url 'create_book' %}">اضافه کردن کتاب</a>
+
         {% if user.is_authenticated %}
-        <div class="mx-2 text-white">خوش آمدی {{ user.username }} | <a class="link-light text-decoration-none" href="{% url 'account_logout' %}">خروج</a>
+            <div class="mx-2 text-white">خوش آمدی {{ user.username }} |
+            <a class="link-light text-decoration-none" href="{% url 'account_logout' %}">خروج</a>
         {% else %}
-            <a class="link-light text-decoration-none" href="{% url 'account_login' %}?next={{ request.path }}">ورود </a> | <a class="link-light text-decoration-none" href="{% url 'account_signup' %}">ثبت نام</a>
+            <a class="link-light text-decoration-none"
+               href="{% url 'account_login' %}?next={{ request.path }}">ورود </a> |
+            <a class="link-light text-decoration-none" href="{% url 'account_signup' %}">ثبت نام</a>
         {% endif %}
         </div>
-    </div>
+        </div>
 </nav>
 
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-up"
+     viewBox="0 0 16 16">
+    <path d="M3.5 12.5a.5.5 0 0 1-1 0V3.707L1.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 3.707V12.5zm3.5-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"/>
+</svg>
 
+
+<i class="bi bi-sort-up"><a class="filter_by" href="{% url 'filter_list' %}?sort=low">ارزان ترین</a></i>-
+<i class="bi bi-sort-up"><a class="filter_by" href="{% url 'filter_list' %}?sort=high">گران ترین</a></i>-
+<i clss="bi bi-sort-up"><a class="filter_by" href="{% url 'filter_list' %}?sort=new">جدید ترین</a></i>-
+<i class="bi bi-sort-up"><a class="filter_by" href="{% url 'filter_list' %}?sort=high">قدیمی ترین</a></i>
+{#<br>#}
 {% block content %}
 
 
@@ -72,20 +86,22 @@
 
 <footer class="bg-light text-center text-lg-start mt-5">
     <div class="text-center bg-grey">
-            <div>
-                <nav aria-label="Page navigation example">
-                  <ul class="pagination">
-                {% if page_obj.has_previous %}
-                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
-                {% endif %}
+        <div>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                        </li>
+                    {% endif %}
                     <li class="page-item"><a class="page-link" href="?page={{ page_obj.page_number }}">1</a></li>
-                {% if page_obj.has_next %}
-                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
-                {% endif %}
-                  </ul>
+                    {% if page_obj.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                        </li>
+                    {% endif %}
+                </ul>
 
-                </nav>
-            </div>
+            </nav>
+        </div>
 
 
         <p>پروژه کتاب <a class="text-dark" href="" target="_blank">امیرحسین</a></p>

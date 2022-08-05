@@ -5,6 +5,7 @@ from .forms import CommentForm,FormCreateBook
 from django.http import HttpResponseRedirect
 from django.urls import reverse,reverse_lazy
 from django.contrib.auth.mixins import UserPassesTestMixin,LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 class BookList(generic.ListView):
     model = Book
@@ -62,6 +63,7 @@ def favorite_book(request, pk):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
+@login_required
 def favorite_list(request):
     user = request.user
     favorite_books = user.favorite.all()
@@ -109,3 +111,17 @@ def category_filter(request, cats):
 
     cat = Book.objects.filter(genre=cats)
     return render(request, 'pages/category.html', {'category': cat})
+
+
+def filter_by(request):
+
+    sort_by = request.GET.get('sort', 'low')
+    if sort_by == 'low':
+        product = Book.objects.filter().order_by('price')
+    elif sort_by == 'high':
+        product = Book.objects.filter().order_by('-price')
+    elif sort_by == 'new':
+        product = Book.objects.filter().order_by('-create_datetime')
+    elif sort_by == 'old':
+        product = Book.objects.filter().order_by('create_datetime')
+    return render(request, 'pages/filter_list.html', {'sort':sort_by, 'product': product})

@@ -5,7 +5,7 @@ from django import forms
 class FormCreateBook(forms.ModelForm):
     class Meta:
         model = Book
-        fields = ('genre', 'title', 'author', 'text', 'price', 'cover', )
+        fields = ('user','genre', 'title', 'author', 'text', 'price', 'cover', )
 
 
 class CommentForm(forms.ModelForm):
