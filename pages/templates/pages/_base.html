@@ -1,5 +1,6 @@
 {% load static %}
 {% load crispy_forms_tags %}
+{% load i18n %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -31,35 +32,51 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">خانه</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">{% trans 'home' %}</a>
 
             </div>
             <form action="{% url 'search' %}" method="POST" class="search-form">
                 {% csrf_token %}
                 <input type="text" class="se-form search-input" name="searched">
-                <input type="submit" class="se-form search-submit" value="جـستجو">
+                <input type="submit" class="se-form search-submit" value="{% trans 'search' %}">
             </form>
         </div>
 
 
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="{% url 'favorite_list' %}">کتاب های مورد علاقه</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'favorite_list' %}">{% trans 'favorite book' %}</a>
 
-                <a class="nav-link active" aria-current="page" href="{% url 'create_book' %}">اضافه کردن کتاب</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'create_book' %}">{% trans 'add book' %}</a>
 
             </div>
 
 
-        {% if user.is_authenticated %}
-            <div class="mx-2 text-white">خوش آمدی {{ user.username }} |
-            <a class="link-light text-decoration-none" href="{% url 'account_logout' %}">خروج</a>
-        {% else %}
-            <a class="link-light text-decoration-none"
-               href="{% url 'account_login' %}?next={{ request.path }}">ورود </a> |
-            <a class="link-light text-decoration-none" href="{% url 'account_signup' %}">ثبت نام</a>
-        {% endif %}
-        </div>
+            {% if user.is_authenticated %}
+                <div class="mx-2 text-white">{% trans 'welcome' %}{{ user.username }} |
+                <a class="link-light text-decoration-none" href="{% url 'account_logout' %}">{% trans 'logout' %}</a>
+            {% else %}
+                <a class="link-light text-decoration-none"
+                   href="{% url 'account_login' %}?next={{ request.path }}">{% trans 'login' %} </a> |
+                <a class="link-light text-decoration-none" href="{% url 'account_signup' %}">{% trans 'signup' %}</a>
+            {% endif %}
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    {% trans 'category' %}
+                </a>
+                <ul class="dropdown-menu">
+                    {% for cat in category %}
+
+                            <li><a class="dropdown-item" href="{% url 'category' cat.id %}">{{ cat.name}}</a></li>
+                    {% endfor %}
+
+                </ul>
+
+
+
+            </div>
         </div>
 </nav>
 
@@ -69,10 +86,10 @@
 </svg>
 
 
-<i class="bi bi-sort-up"><a class="filter_by" href="{% url 'filter_list' %}?sort=low">ارزان ترین</a></i>-
-<i class="bi bi-sort-up"><a class="filter_by" href="{% url 'filter_list' %}?sort=high">گران ترین</a></i>-
-<i clss="bi bi-sort-up"><a class="filter_by" href="{% url 'filter_list' %}?sort=new">جدید ترین</a></i>-
-<i class="bi bi-sort-up"><a class="filter_by" href="{% url 'filter_list' %}?sort=high">قدیمی ترین</a></i>
+<i class="bi bi-sort-up"><a class="filter_by" href="{% url 'filter_list' %}?sort=low">{% trans 'cheapest' %}</a></i>-
+<i class="bi bi-sort-up"><a class="filter_by" href="{% url 'filter_list' %}?sort=high">{% trans 'expensive' %}</a></i>-
+<i clss="bi bi-sort-up"><a class="filter_by" href="{% url 'filter_list' %}?sort=new">{% trans 'news' %}</a></i>-
+{#<i class="bi bi-sort-up"><a class="filter_by" href="{% url 'filter_list' %}?sort=high">{% trans 'oldest' %}</a></i>#}
 {#<br>#}
 {% block content %}
 
@@ -90,12 +107,12 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     {% if page_obj.has_previous %}
-                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">{% trans 'Previous'  %}</a>
                         </li>
                     {% endif %}
                     <li class="page-item"><a class="page-link" href="?page={{ page_obj.page_number }}">1</a></li>
                     {% if page_obj.has_next %}
-                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">{% trans 'Next' %}</a>
                         </li>
                     {% endif %}
                 </ul>

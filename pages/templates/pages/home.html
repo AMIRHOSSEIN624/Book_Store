@@ -1,4 +1,4 @@
-{% extends '_base.html' %}
+{% extends 'pages/_base.html' %}
 
 {% block title %}
     Home
@@ -6,7 +6,6 @@
 {% endblock %}
 
 {% block content %}
-
 
 
    <div class="container mt-4">
@@ -26,7 +25,7 @@
                             <a href="{% url 'category' book.genre_id %}">{{ book.genre }} </a>
 
                             <p class="text-muted">نویسنده: {{ book.author }}</p>
-                            <p class="card-text pt-3">{{ book.text|truncatewords:30 }}</p>
+                            <p class="card-text pt-3">{% block trans %}{{ book.text|truncatewords:30 }} {% endblock %}</p>
 
                         </div>
                     </div>

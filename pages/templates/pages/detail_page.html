@@ -1,4 +1,4 @@
-{% extends '_base.html' %}
+{% extends 'pages/_base.html' %}
 {% load crispy_forms_tags %}
 {% load static %}
 {% block title %}
@@ -94,7 +94,7 @@
 
 
                         {% endfor %}
-                    <a class="nav-link active" aria-current="page" href="{% url 'update_book' book.id %}">update</a>
+
                     </div>
                 </div>
 

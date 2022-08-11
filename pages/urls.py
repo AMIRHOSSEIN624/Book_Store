@@ -12,7 +12,7 @@ urlpatterns = [
     path('add/book/', CreateBook.as_view(), name='create_book'),
     path('<int:pk>/update/', UpdateBook.as_view(), name='update_book'),
     path('<int:pk>/delete/', DeleteBook.as_view(), name='delete'),
-    path('<str:cats>/category/', category_filter, name='category'),
     path('filter/', filter_by , name='filter_list'),
+    path('category/<str:cats>/', category_filter, name='category'),
 
 ]

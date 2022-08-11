@@ -1,0 +1,104 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-08-08 12:33+0430\n"
+"PO-Revision-Date: 2022-08-08 12:35+0430\n"
+"Last-Translator:   <amir@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Translated-Using: django-rosetta 0.9.8\n"
+
+#: .\models.py:16
+msgid "genre"
+msgstr "ژانر"
+
+#: .\models.py:17
+msgid "title"
+msgstr "عنوان"
+
+#: .\models.py:18
+msgid "author"
+msgstr "نویسنده"
+
+#: .\models.py:19
+msgid "text"
+msgstr "متن"
+
+#: .\models.py:20
+msgid "price"
+msgstr "قیمت"
+
+#: .\models.py:21
+msgid "cover"
+msgstr "عکس"
+
+#: .\templates\pages\_base.html:35
+msgid "home"
+msgstr "خانه"
+
+#: .\templates\pages\_base.html:41
+msgid "search"
+msgstr "جستجو"
+
+#: .\templates\pages\_base.html:48
+msgid "favorite book"
+msgstr "کتاب های مورد علاقه"
+
+#: .\templates\pages\_base.html:50
+msgid "add book"
+msgstr "اضافه کردن کتاب"
+
+#: .\templates\pages\_base.html:56
+msgid "welcome"
+msgstr "خوش امدید"
+
+#: .\templates\pages\_base.html:57
+msgid "logout"
+msgstr "خروج"
+
+#: .\templates\pages\_base.html:60
+msgid "login"
+msgstr "ورود"
+
+#: .\templates\pages\_base.html:61
+msgid "signup"
+msgstr "ثبت نام"
+
+#: .\templates\pages\_base.html:67
+msgid "category"
+msgstr "دسته بندی"
+
+#: .\templates\pages\_base.html:93
+msgid "cheapest"
+msgstr "ارزان ترین"
+
+#: .\templates\pages\_base.html:94
+msgid "expensive"
+msgstr "گران ترین"
+
+#: .\templates\pages\_base.html:95
+msgid "news"
+msgstr "جدید ترین"
+
+#: .\templates\pages\_base.html:96
+msgid "oldest"
+msgstr "قدیمی ترین"
+
+#: .\templates\pages\_base.html:114
+msgid "Previous"
+msgstr "قبلی"
+
+#: .\templates\pages\_base.html:119
+#| msgid "text"
+msgid "Next"
+msgstr "بعدی"

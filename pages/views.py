@@ -1,17 +1,24 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
-from .models import Book , Category
+from .models import Book, Category
 from django.views import generic
-from .forms import CommentForm,FormCreateBook
+from .forms import CommentForm, FormCreateBook
 from django.http import HttpResponseRedirect
-from django.urls import reverse,reverse_lazy
-from django.contrib.auth.mixins import UserPassesTestMixin,LoginRequiredMixin
+from django.urls import reverse, reverse_lazy
+from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+
 
 class BookList(generic.ListView):
     model = Book
     template_name = 'pages/home.html'
     context_object_name = 'books'
     paginate_by = 4
+
+
+def category_filter(request, cats):
+    cat = Book.objects.filter(genre=cats)
+
+    return render(request, 'pages/category.html', {'category': cat})
 
 
 def like_view(request, pk):
@@ -49,7 +56,8 @@ def detail_page(request, pk):
         comment_form = CommentForm()
 
     return render(request, 'pages/detail_page.html',
-                  {'book': book, 'comments': comment, 'comment_form': comment_form, 'is_favorite': is_favorite , 'total_likes': total_likes, 'liked': liked,})
+                  {'book': book, 'comments': comment, 'comment_form': comment_form, 'is_favorite': is_favorite,
+                   'total_likes': total_likes, 'liked': liked, })
 
 
 def favorite_book(request, pk):
@@ -79,14 +87,14 @@ def search_bar(request):
         return render(request, 'pages/search.html')
 
 
-class CreateBook(LoginRequiredMixin,generic.CreateView):
+class CreateBook(LoginRequiredMixin, generic.CreateView):
     model = Book
     form_class = FormCreateBook
     template_name = 'pages/create_book.html'
     success_url = reverse_lazy('home')
 
 
-class UpdateBook(UserPassesTestMixin,generic.UpdateView):
+class UpdateBook(UserPassesTestMixin, generic.UpdateView):
     model = Book
     form_class = FormCreateBook
     template_name = 'pages/create_book.html'
@@ -97,7 +105,7 @@ class UpdateBook(UserPassesTestMixin,generic.UpdateView):
         return obj.user == self.request.user
 
 
-class DeleteBook(UserPassesTestMixin,generic.DeleteView):
+class DeleteBook(UserPassesTestMixin, generic.DeleteView):
     model = Book
     template_name = 'pages/delete_book.html'
     success_url = reverse_lazy('home')
@@ -107,14 +115,7 @@ class DeleteBook(UserPassesTestMixin,generic.DeleteView):
         return obj.user == self.request.user
 
 
-def category_filter(request, cats):
-
-    cat = Book.objects.filter(genre=cats)
-    return render(request, 'pages/category.html', {'category': cat})
-
-
 def filter_by(request):
-
     sort_by = request.GET.get('sort', 'low')
     if sort_by == 'low':
         product = Book.objects.filter().order_by('price')
@@ -122,6 +123,6 @@ def filter_by(request):
         product = Book.objects.filter().order_by('-price')
     elif sort_by == 'new':
         product = Book.objects.filter().order_by('-create_datetime')
-    elif sort_by == 'old':
-        product = Book.objects.filter().order_by('create_datetime')
-    return render(request, 'pages/filter_list.html', {'sort':sort_by, 'product': product})
+    # elif sort_by == 'old':
+    #     product = Book.objects.filter().order_by('create_datetime')
+    return render(request, 'pages/filter_list.html', {'sort': sort_by, 'product': product})
