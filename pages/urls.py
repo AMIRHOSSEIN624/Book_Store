@@ -13,6 +13,6 @@ urlpatterns = [
     path('<int:pk>/update/', UpdateBook.as_view(), name='update_book'),
     path('<int:pk>/delete/', DeleteBook.as_view(), name='delete'),
     path('filter/', filter_by , name='filter_list'),
-    path('category/<str:cats>/', category_filter, name='category'),
+    path('category/<slug:slug>/', category_filter, name='category'),
 
 ]

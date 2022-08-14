@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from ckeditor.fields import RichTextField
+from django.template.defaultfilters import slugify
 
 
 class Category(models.Model):
@@ -23,6 +24,7 @@ class Book(models.Model):
     text = models.TextField(verbose_name=_('text'))
     price = models.DecimalField(max_digits=6, decimal_places=3, verbose_name=_('price'))
     cover = models.ImageField(upload_to='covers/', verbose_name=_('cover'))
+    slug = models.SlugField(null=True)
     favorite = models.ManyToManyField(get_user_model(), related_name='favorite', blank=True)
     likes = models.ManyToManyField(get_user_model(), related_name='book_likes', blank=True)
     views = models.IntegerField(default=0)
@@ -34,10 +36,11 @@ class Book(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('detail_page', args=[self.id])
+        return reverse('detail_page', args= [self.id])
 
     def total_likes(self):
         return self.likes.count()
+
 
 
 class Comment(models.Model):

@@ -15,8 +15,8 @@ class BookList(generic.ListView):
     paginate_by = 4
 
 
-def category_filter(request, cats):
-    cat = Book.objects.filter(genre=cats)
+def category_filter(request, pk):
+    cat = Book.objects.filter(genre=pk)
 
     return render(request, 'pages/category.html', {'category': cat})
 
